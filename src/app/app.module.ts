@@ -7,6 +7,7 @@ import { FormsComponent } from './forms/forms.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { LoginComponent } from './login/login.component';
 import { FiltersComponent } from './filter/filters.component';
+import { HeaderComponent } from './header/header.component';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { FiltersComponent } from './filter/filters.component';
     UserListComponent,
     LoginComponent,
     FiltersComponent,
+    HeaderComponent,
     
   ],
   imports: [
