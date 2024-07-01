@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { User } from '../user.model';
 
@@ -15,7 +14,7 @@ export class FormsComponent implements OnInit {
     dob: '',
     gender: '',
     interests: [],
-    experience: 0  
+    experience: 0
   };
   users: User[] = [];
   filteredUsers: User[] = [];
@@ -45,6 +44,11 @@ export class FormsComponent implements OnInit {
       return;
     }
 
+    if (this.user.dob) {
+      const [year, month, day] = this.user.dob.split('-');
+      this.user.dob = `${day}-${month}-${year}`;
+    }
+
     this.users.push({ ...this.user });
     localStorage.setItem('users', JSON.stringify(this.users));
     this.filteredUsers = [...this.users];
@@ -58,19 +62,6 @@ export class FormsComponent implements OnInit {
     this.filteredUsers = [...this.users];
   }
 
-  filterUsers(gender: string, experienceRange: string): void {
-    this.filteredUsers = this.users;
-
-    if (gender !== 'All') {
-      this.filteredUsers = this.filteredUsers.filter(user => user.gender === gender);
-    }
-
-    if (experienceRange !== 'All') {
-      const [min, max] = experienceRange.split('-').map(Number);
-      this.filteredUsers = this.filteredUsers.filter(user => user.experience >= min && user.experience <= max);
-    }
-  }
-
   resetForm(): void {
     this.user = {
       fullName: '',
@@ -79,7 +70,7 @@ export class FormsComponent implements OnInit {
       dob: '',
       gender: '',
       interests: [],
-      experience: 0  
+      experience: 0
     };
   }
 }

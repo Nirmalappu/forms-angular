@@ -19,26 +19,27 @@ export class UserListComponent implements OnInit {
   }
 
   deleteUser(index: number): void {
-    this.users.splice(index, 1);
-    localStorage.setItem('users', JSON.stringify(this.users));
-    this.filteredUsers = [...this.users];
-  }
-
-  filterUsers(gender: string, experienceRange: string): void {
-    this.filteredUsers = this.users;
-
-    if (gender !== 'All') {
-      this.filteredUsers = this.filteredUsers.filter(user => user.gender === gender);
-    }
-
-    if (experienceRange !== 'All') {
-      const [min, max] = experienceRange.split('-').map(Number);
-      this.filteredUsers = this.filteredUsers.filter(user => user.experience >= min && user.experience <= max);
+    const confirmation = window.confirm('Are you sure you want to delete this user?');
+    if (confirmation) {
+      this.users.splice(index, 1);
+      localStorage.setItem('users', JSON.stringify(this.users));
+      this.filteredUsers = [...this.users];
     }
   }
 
-  onLogout(): void {
-    alert('Logout successful!');
-    // Optionally, clear any session data or redirect to the login page
+  filterUsers(filter: { gender: string, experienceRange: string }): void {
+    this.filteredUsers = this.users.filter(user => {
+      return (filter.gender === 'All' || user.gender === filter.gender) &&
+             (filter.experienceRange === 'All' || this.isWithinExperienceRange(user.experience, filter.experienceRange));
+    });
+  }
+
+  private isWithinExperienceRange(experience: number, range: string): boolean {
+    switch(range) {
+      case '0-1': return experience >= 0 && experience <= 1;
+      case '1-3': return experience > 1 && experience <= 3;
+      case '3+': return experience > 3;
+      default: return true;
+    }
   }
 }

@@ -1,29 +1,5 @@
+<app-filters (filterChange)="filterUsers($event)"></app-filters>
 <div class="container">
-  <div class="filters">
-    <label for="filter-gender">Filter by Gender:</label>
-    <select id="filter-gender" (change)="filterUsers(filterGender.value, filterExperience.value)" #filterGender>
-      <option value="All">All</option>
-      <option value="Male">Male</option>
-      <option value="Female">Female</option>
-    </select>
-
-    <label for="filter-experience">Filter by Experience:</label>
-    <select id="filter-experience" (change)="filterUsers(filterGender.value, filterExperience.value)" #filterExperience>
-      <option value="All">All</option>
-      <option value="0-5">0-5 years</option>
-      <option value="6-10">6-10 years</option>
-      <option value="11-15">11-15 years</option>
-      <option value="16-20">16-20 years</option>
-    </select>
-  </div>
-  <div class="navigation">
-    <a routerLink="/register" class="left-align">Register</a>
-    <a routerLink="/login" (click)="onLogout()" class="right-align">Logout</a>
-    <div class="clearfix"></div>
-</div>
-
-
-
   <table id="usersTable">
     <thead>
       <tr>
@@ -33,6 +9,7 @@
         <th>Gender</th>
         <th>Interests</th>
         <th>Experience</th>
+        <th>Password</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -44,6 +21,7 @@
         <td>{{ user.gender }}</td>
         <td>{{ user.interests }}</td>
         <td>{{ user.experience }}</td>
+        <td>{{ user.password }}</td>
         <td><button (click)="deleteUser(i)">Delete</button></td>
       </tr>
     </tbody>
